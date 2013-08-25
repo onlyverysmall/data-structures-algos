@@ -9,8 +9,9 @@ class Link
 end
 
 class LinkedList
-  def initialize(head)
+  def initialize(head, tail)
     @head = head
+    @tail = tail
   end
 
   def include?(val)
@@ -33,6 +34,9 @@ class LinkedList
 
     while !cur_link.next.nil?
       if cur_link.next.val == val
+        if cur_link.next == @tail
+          @tail = cur_link
+        end
         cur_link.next = cur_link.next.next
         return "val deleted"
       else
@@ -57,6 +61,10 @@ class LinkedList
       cur_link = cur_link.next
     end
 
+    if cur_link == @tail
+      @tail = new_link
+    end
+
     new_link.next = cur_link.next
     cur_link.next = new_link
     
@@ -72,34 +80,29 @@ class LinkedList
     end
 
     cur_link.next = new_link
+    @tail = new_link
   end
 
   def pop
     cur_link = @head
 
-    until cur_link.next.next.nil?
+    until cur_link.next == @tail
       cur_link = cur_link.next
       pop_link = cur_link.next
     end
 
     cur_link.next = nil
+    @tail = cur_link
     pop_link
   end
 end
 
-l1 = Link.new(5, nil)
-l2 = Link.new(10, nil)
-l3 = Link.new(15, nil)
+l5 = Link.new(25, nil)
+l4 = Link.new(20, l5)
+l3 = Link.new(15, l4)
+l2 = Link.new(10, l3)
+l1 = Link.new(5, l2)
 
-l1.next = l2
-l2.next = l3
+list = LinkedList.new(l1, l5)
 
-list = LinkedList.new(l1)
-
-list.push(20)
-list.push(25)
-
-pp list
-
-list.pop
 pp list
