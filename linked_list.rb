@@ -32,7 +32,7 @@ class LinkedList
       return "val found at head"
     end
 
-    while !cur_link.next.nil?
+    while cur_link != @tail
       if cur_link.next.val == val
         if cur_link.next == @tail
           @tail = cur_link
@@ -95,6 +95,23 @@ class LinkedList
     @tail = cur_link
     pop_link
   end
+
+  def find_mth_to_last(m)
+    cur_link = @head
+    cur_pos = 0
+    mth_el = @head
+
+    until cur_link == @tail
+      cur_link = cur_link.next
+      cur_pos += 1
+      if cur_pos > m
+        mth_el = mth_el.next
+      end
+    end
+    
+    return nil if cur_pos < m
+    mth_el
+  end
 end
 
 l5 = Link.new(25, nil)
@@ -105,4 +122,4 @@ l1 = Link.new(5, l2)
 
 list = LinkedList.new(l1, l5)
 
-pp list
+pp list.find_mth_to_last(5)
