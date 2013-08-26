@@ -13,6 +13,7 @@ class DoublyLinkedList
     @tail = tail  
   end
 
+  # return link if present, nil otherwise
   def include?(val)
     cur_link = @head
 
@@ -23,6 +24,7 @@ class DoublyLinkedList
     cur_link
   end
 
+  # return true if link found and deleted, false otherwise
   def delete(val)
     result = false
     if @head.val == val
@@ -53,6 +55,7 @@ class DoublyLinkedList
     result
   end
 
+  # return true if link inserted, false otherwise
   def insert(val)
     new_link = Link.new(val, nil, nil)
     

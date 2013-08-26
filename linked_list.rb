@@ -12,6 +12,7 @@ class LinkedList
     @head, @tail = head, tail
   end
 
+  # return link if present, nil otherwise
   def include?(val)
     cur_link = @head
 
@@ -22,6 +23,7 @@ class LinkedList
     cur_link
   end
 
+  # return true if link found & deleted, false otherwise
   def delete(val)
     result = false
 
@@ -46,6 +48,7 @@ class LinkedList
     result
   end
 
+  # return true if link inserted, false otherwise
   def insert(val)
     result = false
     cur_link = @head
@@ -70,12 +73,14 @@ class LinkedList
     result
   end
 
+  # return link push to stack
   def push(val)
     new_link = Link.new(val, nil)
     @tail.next = new_link
     @tail = new_link
   end
 
+  # return link popped from stack
   def pop
     cur_link = @head
     pop_link = @tail
@@ -94,6 +99,7 @@ class LinkedList
     pop_link
   end
 
+  # return link mth from last, or nil if m > length of list
   def find_mth_to_last(m)
     cur_link = mth_el = @head
     cur_pos = 0
@@ -118,5 +124,4 @@ l2 = Link.new(10, l3)
 l1 = Link.new(5, l2)
 
 list = LinkedList.new(l1, l5)
-
 pp list
