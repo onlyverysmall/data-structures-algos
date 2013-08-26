@@ -1,17 +1,15 @@
-require 'pp'
+require "pp"
 
 class Link
   attr_accessor :next, :val
   def initialize(val, next_link)
-    @val = val
-    @next = next_link
+    @val, @next = val, next_link
   end
 end
 
 class LinkedList
   def initialize(head, tail)
-    @head = head
-    @tail = tail
+    @head, @tail = head, tail
   end
 
   def include?(val)
@@ -25,81 +23,80 @@ class LinkedList
   end
 
   def delete(val)
-    cur_link = @head
+    result = false
 
-    if cur_link.val == val
+    if @head.val == val
       @head = @head.next
-      return "val found at head"
-    end
-
-    while cur_link != @tail
-      if cur_link.next.val == val
-        if cur_link.next == @tail
-          @tail = cur_link
+      result = true
+    else
+      cur_link = @head
+      while cur_link != @tail
+        if cur_link.next.val == val
+          if cur_link.next == @tail
+            @tail = cur_link
+          end
+          cur_link.next = cur_link.next.next
+          result = true
+        else
+          cur_link = cur_link.next
         end
-        cur_link.next = cur_link.next.next
-        return "val deleted"
-      else
-        cur_link = cur_link.next
       end
     end
 
-    return "val not found in list"
+    result
   end
 
   def insert(val)
+    result = false
     cur_link = @head
     new_link = Link.new(val, nil)
 
     if cur_link.val > val
       @head = new_link
       new_link.next = cur_link
-      return "inserted before head"
+      result = true
+    else
+      until cur_link.next.nil? || cur_link.next.val >= val
+        cur_link = cur_link.next
+      end
+
+      @tail = new_link if cur_link == @tail
+
+      new_link.next = cur_link.next
+      cur_link.next = new_link
+      result = true
     end
 
-    until cur_link.next.nil? || cur_link.next.val >= val
-      cur_link = cur_link.next
-    end
-
-    if cur_link == @tail
-      @tail = new_link
-    end
-
-    new_link.next = cur_link.next
-    cur_link.next = new_link
-    
-    return "inserted somewhere after head"
+    result
   end
 
   def push(val)
-    cur_link = @head
     new_link = Link.new(val, nil)
-
-    until cur_link.next.nil?
-      cur_link = cur_link.next
-    end
-
-    cur_link.next = new_link
+    @tail.next = new_link
     @tail = new_link
   end
 
   def pop
     cur_link = @head
+    pop_link = @tail
 
-    until cur_link.next == @tail
-      cur_link = cur_link.next
-      pop_link = cur_link.next
+    if @head == @tail 
+      @head = @tail = nil
+    else
+      until cur_link.next == @tail
+        cur_link = cur_link.next
+      end
+
+      cur_link.next = nil
+      @tail = cur_link
     end
 
-    cur_link.next = nil
-    @tail = cur_link
     pop_link
   end
 
   def find_mth_to_last(m)
-    cur_link = @head
+    cur_link = mth_el = @head
     cur_pos = 0
-    mth_el = @head
 
     until cur_link == @tail
       cur_link = cur_link.next
@@ -122,4 +119,4 @@ l1 = Link.new(5, l2)
 
 list = LinkedList.new(l1, l5)
 
-pp list.find_mth_to_last(5)
+pp list
