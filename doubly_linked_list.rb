@@ -55,7 +55,7 @@ class DoublyLinkedList
     result
   end
 
-  # return true if link inserted, false otherwise
+  # return true if link inserted (assumes list is sorted), false otherwise
   def insert(val)
     new_link = Link.new(val, nil, nil)
     
