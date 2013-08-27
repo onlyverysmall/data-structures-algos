@@ -27,6 +27,7 @@ class DoublyLinkedList
   # return true if link found and deleted, false otherwise
   def delete(val)
     result = false
+    # handle special cases first
     if @head.val == val
       @head = @head.next
       @head.previous = nil

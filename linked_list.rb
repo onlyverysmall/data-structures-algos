@@ -48,7 +48,7 @@ class LinkedList
     result
   end
 
-  # return true if link inserted, false otherwise
+  # return true if link inserted (assumes sorted list), false otherwise
   def insert(val)
     result = false
     cur_link = @head
